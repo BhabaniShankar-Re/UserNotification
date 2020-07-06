@@ -22,12 +22,18 @@ class Alert {
         alertController.addAction(action)
         alertController.addAction(dismiss)
         
-        let keyWindow = UIApplication.shared.connectedScenes
-        .filter({$0.activationState == .foregroundActive})
-        .map({$0 as? UIWindowScene})
-        .compactMap({$0})
-        .first?.windows
-        .filter({$0.isKeyWindow}).first
+        var keyWindow: UIWindow?
+        if #available(iOS 13.0, *){
+            keyWindow = UIApplication.shared.connectedScenes
+            .filter({$0.activationState == .foregroundActive})
+            .map({$0 as? UIWindowScene})
+            .compactMap({$0})
+            .first?.windows
+            .filter({$0.isKeyWindow}).first
+        }else{
+            keyWindow = UIApplication.shared.keyWindow
+        }
+        
 
         
         keyWindow?.rootViewController?.present(alertController, animated: true, completion: nil)

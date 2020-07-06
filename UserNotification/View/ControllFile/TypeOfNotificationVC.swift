@@ -19,7 +19,7 @@ class TypeOfNotificationVC: UIViewController {
         switch segue.identifier {
         case "DetailsNotificationVCstbId":
             let vc = segue.destination as! NotificationDetailsVC
-            vc.labelTitle = sender as! String
+            vc.notificationType = sender as? NotificationType
         default:
             break
         }
@@ -41,8 +41,11 @@ extension TypeOfNotificationVC: UITableViewDataSource, UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let currentCell = tableView.cellForRow(at: indexPath) as! TableViewCell
-        self.performSegue(withIdentifier: "DetailsNotificationVCstbId", sender: currentCell.labelName.text)
+        var notification =  NotificationType.timeInterval
+        if indexPath.row == 1{
+            notification = NotificationType.calender
+        }
+        self.performSegue(withIdentifier: "DetailsNotificationVCstbId", sender: notification)
     }
     
     

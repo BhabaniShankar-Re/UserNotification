@@ -1,17 +1,19 @@
 //
-//  NotificationCenter.swift
+//  UserNotification.swift
 //  UserNotification
 //
-//  Created by Bhabani on 20/04/20.
+//  Created by Bhabani on 22/06/20.
 //  Copyright © 2020 Bhabani. All rights reserved.
 //
 
 import Foundation
 import UserNotifications
-class NotificationCenter{
-    static let notification = UNUserNotificationCenter.current()
+
+class UserNotification {
+    static let notification = UserNotification()
+    let notification = UNUserNotificationCenter.current()
     
-    static func notificationStatus() -> Void{
+    func notificationSettingStatus(){
         notification.getNotificationSettings { (setting) in
             switch setting.authorizationStatus{
             case .authorized:
@@ -25,6 +27,5 @@ class NotificationCenter{
             }
         }
     }
-    
     
 }
